@@ -163,11 +163,17 @@ public class ValidatorFactoryProvider implements ValidatorFactory {
 	
 	@Override
 	public String getResourceMessage( Context context, Fragment fragment ) {
+		if ( StringUtils.isNotEmpty( fragment.getMessage() ) ) {
+			String resolvedMessage = getResourceMessage( fragment.getMessage(), context.getLocale() );
+			return ExpressionResolver.resolveResourceText( resolvedMessage, context, fragment.getArguments() );
+		}
+		
 		MessageResolver messageResolver = getMessageResolver();
 		String [] messageKeys = context.getMessageKeys();
 		if ( ArrayUtil.isEmpty( messageKeys ) ) {
 			messageKeys = new String[] { fragment.getName() };
 		}
+		
 		for ( String messageKey : messageKeys ) {
 			String errorCode = messageResolver.getMessageKey( messageKey );
 			String errorMessage = messageResolver.resolve( errorCode, context.getLocale() );
