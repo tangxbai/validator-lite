@@ -44,6 +44,8 @@ import com.viiyue.plugins.validator.scripting.parser.TemplateRuleParser;
  * 
  */
 public interface ValidatorFactory {
+	
+	void afterInitialized();
 
 	/**
 	 * Optional configuration for setting context

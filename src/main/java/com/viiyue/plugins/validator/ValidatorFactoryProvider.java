@@ -130,13 +130,12 @@ public class ValidatorFactoryProvider implements ValidatorFactory {
 		Assert.isNull( this.configuration, "Context configuration allows configuration only once" );
 		this.configuration = configuration == null ? new ContextConfigurion() : configuration;
 		this.compiler.getTemplateParser().setStrictMode( this.configuration.isEnableStrictMode() );
-		this.initMessageResovler( getMessageResolver() );
 	}
 
 	@Override
 	public MessageResolver getMessageResolver() {
 		if ( messageResolver == null ) {
-			this.messageResolver = new DefaultMessageResolver( DEFAULT_RESOURCE_NAME, DEFAULT_MESSAGE_KEY_PREFIX, DEFAULT_MESSAGE_LANGUAGES );
+			this.setMessageResolver( new DefaultMessageResolver( DEFAULT_RESOURCE_NAME, DEFAULT_MESSAGE_KEY_PREFIX, DEFAULT_MESSAGE_LANGUAGES ) );
 		}
 		return messageResolver;
 	}
@@ -145,6 +144,18 @@ public class ValidatorFactoryProvider implements ValidatorFactory {
 	public void setMessageResolver( MessageResolver messageResolver ) {
 		if ( this.messageResolver == null ) {
 			this.messageResolver = messageResolver;
+		}
+	}
+	
+	@Override
+	public void afterInitialized() {
+		if ( messageResolver != null ) {
+			if ( configuration != null ) {
+				this.messageResolver.setConfiguration( configuration );
+				this.messageResolver.addResourceBundles( configuration.getResources() );
+				this.messageResolver.setDefaultLocale( configuration.getDefaultLanguage() );
+			}
+			this.messageResolver.addResourceBundle( DEFAULT_RESOURCE_NAME, DEFAULT_MESSAGE_LANGUAGES );
 		}
 	}
 	
@@ -437,13 +448,6 @@ public class ValidatorFactoryProvider implements ValidatorFactory {
 			LOG.warn( "The handler \"{}\" already exists, but you replaced it", handler.name() );
 		}
 		this.handlers.put( handlerName, handler );
-	}
-	
-	private void initMessageResovler( MessageResolver messageResolver ) {
-		messageResolver.setConfiguration( configuration );
-		messageResolver.addResourceBundles( configuration.getResources() );
-		messageResolver.addResourceBundle( DEFAULT_RESOURCE_NAME, DEFAULT_MESSAGE_LANGUAGES );
-		messageResolver.setDefaultLocale( configuration.getDefaultLanguage() );
 	}
 
 	private void loadHandlers() {
