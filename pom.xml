@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (C) 2019-2020 the original author or authors.
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.viiyue.plugins</groupId>
+		<artifactId>plugin-release-parent</artifactId>
+		<version>3</version>
+		<relativePath />
+	</parent>
+
+	<artifactId>validator-lite</artifactId>
+	<version>1.0.0</version>
+	<packaging>jar</packaging>
+
+	<name>validator-lite</name>
+	<url>https://github.com/tangxbai/validator-lite</url>
+	<description>Simplified and centralized data rule validation framework</description>
+
+	<inceptionYear>2019</inceptionYear>
+	
+	<scm>
+		<url>https://github.com/tangxbai/validator-lite.git</url>
+		<connection>scm:git:git@github.com:tangxbai/validator-lite.git</connection>
+		<developerConnection>scm:git:git@github.com:tangxbai/validator-lite.git</developerConnection>
+		<tag>HEAD</tag>
+	</scm>
+
+	<issueManagement>
+		<system>GitHub Issue Management</system>
+		<url>https://github.com/tangxbai/validator-lite/issues</url>
+	</issueManagement>
+
+	<properties>
+		<log.version>1.7.28</log.version>
+		<commons-jexl.version>3.1</commons-jexl.version>
+		<common-lang.version>3.8.1</common-lang.version>
+		<common-beanutils.version>1.9.3</common-beanutils.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>${log.version}</version>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-jexl3</artifactId>
+			<version>${commons-jexl.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>${common-lang.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-beanutils</groupId>
+			<artifactId>commons-beanutils</artifactId>
+			<version>${common-beanutils.version}</version>
+		</dependency>
+	</dependencies>
+</project>
