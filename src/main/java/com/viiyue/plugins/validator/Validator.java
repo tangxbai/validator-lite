@@ -69,7 +69,7 @@ public final class Validator {
 	 * @param customFactory your custom validation implementation class object
 	 */
 	public static void initFactory( ValidatorFactory customFactory ) {
-		if ( factory == null ) {
+		if ( customFactory != null && factory == null ) {
 			synchronized ( Validator.class ) {
 				if ( factory == null ) {
 					factory = customFactory;
@@ -98,7 +98,21 @@ public final class Validator {
 	 * @param configuration the context Configuration Object
 	 */
 	public static void configuration( ContextConfigurion configuration ) {
-		getFactory().setConfiguration( configuration );
+		configuration( configuration, true );
+	}
+	
+	/**
+	 * Change some optional configurations
+	 * 
+	 * @param configuration the context Configuration Object
+	 * @param isInitialized whether initialization has been completed
+	 */
+	public static void configuration( ContextConfigurion configuration, boolean isInitialized ) {
+		ValidatorFactory factory = getFactory();
+		factory.setConfiguration( configuration );
+		if ( isInitialized ) {
+			factory.afterInitialized();
+		}
 	}
 	
 	/**

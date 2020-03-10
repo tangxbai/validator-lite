@@ -85,6 +85,9 @@ public class DefaultMessageResolver implements MessageResolver {
 	
 	@Override
 	public Locale getDefaultLocale() {
+		if ( defaultLocale == null ) {
+			this.defaultLocale = Locale.getDefault();
+		}
 		return defaultLocale;
 	}
 
@@ -189,7 +192,7 @@ public class DefaultMessageResolver implements MessageResolver {
 	}
 	
 	private void initResourceBundle( ConcurrentMap<String, ResourceBundle> bundles, String baseName, String languageTag, Locale locale ) {
-		locale = ObjectUtils.defaultIfNull( locale, getDefaultLocale() );
+		locale = locale == null ? getDefaultLocale() : locale;
 		String cacheKey = getCacheKey( baseName, languageTag );
 		ResourceBundle bundle = ResourceBundle.getBundle( baseName, locale, ClassUtil.getDefaultClassLoader() );
 		bundles.put( cacheKey, bundle );

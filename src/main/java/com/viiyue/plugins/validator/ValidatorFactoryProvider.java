@@ -130,13 +130,12 @@ public class ValidatorFactoryProvider implements ValidatorFactory {
 		Assert.isNull( this.configuration, "Context configuration allows configuration only once" );
 		this.configuration = configuration == null ? new ContextConfigurion() : configuration;
 		this.compiler.getTemplateParser().setStrictMode( this.configuration.isEnableStrictMode() );
-		this.initMessageResovler( getMessageResolver() );
 	}
 
 	@Override
 	public MessageResolver getMessageResolver() {
 		if ( messageResolver == null ) {
-			this.messageResolver = new DefaultMessageResolver( DEFAULT_RESOURCE_NAME, DEFAULT_MESSAGE_KEY_PREFIX, DEFAULT_MESSAGE_LANGUAGES );
+			this.setMessageResolver( new DefaultMessageResolver( DEFAULT_RESOURCE_NAME, DEFAULT_MESSAGE_KEY_PREFIX, DEFAULT_MESSAGE_LANGUAGES ) );
 		}
 		return messageResolver;
 	}
@@ -146,6 +145,17 @@ public class ValidatorFactoryProvider implements ValidatorFactory {
 		if ( this.messageResolver == null ) {
 			this.messageResolver = messageResolver;
 		}
+	}
+	
+	@Override
+	public void afterInitialized() {
+		MessageResolver messageResolver = getMessageResolver();
+		if ( configuration != null ) {
+			messageResolver.setConfiguration( configuration );
+			messageResolver.addResourceBundles( configuration.getResources() );
+			messageResolver.setDefaultLocale( configuration.getDefaultLanguage() );
+		}
+		messageResolver.addResourceBundle( DEFAULT_RESOURCE_NAME, DEFAULT_MESSAGE_LANGUAGES );
 	}
 	
 	@Override
@@ -163,11 +173,17 @@ public class ValidatorFactoryProvider implements ValidatorFactory {
 	
 	@Override
 	public String getResourceMessage( Context context, Fragment fragment ) {
+		if ( StringUtils.isNotEmpty( fragment.getMessage() ) ) {
+			String resolvedMessage = getResourceMessage( fragment.getMessage(), context.getLocale() );
+			return ExpressionResolver.resolveResourceText( resolvedMessage, context, fragment.getArguments() );
+		}
+		
 		MessageResolver messageResolver = getMessageResolver();
 		String [] messageKeys = context.getMessageKeys();
 		if ( ArrayUtil.isEmpty( messageKeys ) ) {
 			messageKeys = new String[] { fragment.getName() };
 		}
+		
 		for ( String messageKey : messageKeys ) {
 			String errorCode = messageResolver.getMessageKey( messageKey );
 			String errorMessage = messageResolver.resolve( errorCode, context.getLocale() );
@@ -431,13 +447,6 @@ public class ValidatorFactoryProvider implements ValidatorFactory {
 			LOG.warn( "The handler \"{}\" already exists, but you replaced it", handler.name() );
 		}
 		this.handlers.put( handlerName, handler );
-	}
-	
-	private void initMessageResovler( MessageResolver messageResolver ) {
-		messageResolver.setConfiguration( configuration );
-		messageResolver.addResourceBundles( configuration.getResources() );
-		messageResolver.addResourceBundle( DEFAULT_RESOURCE_NAME, DEFAULT_MESSAGE_LANGUAGES );
-		messageResolver.setDefaultLocale( configuration.getDefaultLanguage() );
 	}
 
 	private void loadHandlers() {
