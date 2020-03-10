@@ -85,6 +85,9 @@ public class DefaultMessageResolver implements MessageResolver {
 	
 	@Override
 	public Locale getDefaultLocale() {
+		if ( defaultLocale == null ) {
+			this.defaultLocale = Locale.getDefault();
+		}
 		return defaultLocale;
 	}
 
