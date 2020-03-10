@@ -149,14 +149,13 @@ public class ValidatorFactoryProvider implements ValidatorFactory {
 	
 	@Override
 	public void afterInitialized() {
-		if ( messageResolver != null ) {
-			if ( configuration != null ) {
-				this.messageResolver.setConfiguration( configuration );
-				this.messageResolver.addResourceBundles( configuration.getResources() );
-				this.messageResolver.setDefaultLocale( configuration.getDefaultLanguage() );
-			}
-			this.messageResolver.addResourceBundle( DEFAULT_RESOURCE_NAME, DEFAULT_MESSAGE_LANGUAGES );
+		MessageResolver messageResolver = getMessageResolver();
+		if ( configuration != null ) {
+			messageResolver.setConfiguration( configuration );
+			messageResolver.addResourceBundles( configuration.getResources() );
+			messageResolver.setDefaultLocale( configuration.getDefaultLanguage() );
 		}
+		messageResolver.addResourceBundle( DEFAULT_RESOURCE_NAME, DEFAULT_MESSAGE_LANGUAGES );
 	}
 	
 	@Override
