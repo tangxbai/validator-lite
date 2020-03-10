@@ -27,10 +27,10 @@ import java.util.Locale;
  */
 public class ContextConfigurion {
 
+	private Locale defaultLanguage;
 	private boolean enableStrictMode = true;
 	private boolean enableSingleMode = false;
 	private boolean enableWarningLog = true;
-	private Locale defaultLanguage = Locale.getDefault();
 	private List<MessageResource> resources = new ArrayList<MessageResource>( 4 );
 
 	public boolean isEnableStrictMode() {
