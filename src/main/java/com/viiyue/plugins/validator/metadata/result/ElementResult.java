@@ -18,7 +18,6 @@ package com.viiyue.plugins.validator.metadata.result;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.List;
 
 import org.apache.commons.lang3.ClassUtils;
 
@@ -76,17 +75,28 @@ public final class ElementResult implements Serializable {
 		this.isJavaBean = isJavaBean;
 	}
 
+	/**
+	 * If the current element is a JavaBean, the return value is
+	 * {@link ValidatedResult}, and if it is a normal parameter, it is
+	 * {@link FragmentResult}.
+	 * 
+	 * @return the validated element result
+	 * @since 1.0.0
+	 */
 	public Object getResult() {
 		return result;
 	}
 	
-	public List<FragmentResult> getFragmentResults() {
-		return ( List<FragmentResult> ) result;
-	}
-	
-	public ValidatedResult getBeanResult() {
-		return ( ValidatedResult ) result;
-	}
+	// Removed in v1.0.2
+	// |------------------------------------------------------|
+	// | public List<FragmentResult> getFragmentResults() {   |
+	// |	return ( List<FragmentResult> ) result;           |
+	// | }                                                    |
+	// |                                                      |
+	// | public ValidatedResult getBeanResult() {             |
+	// |	return ( ValidatedResult ) result;                |
+	// | }                                                    |
+	// |------------------------------------------------------|
 	
 	public void setResult( Object result ) {
 		this.result = result;
