@@ -241,14 +241,22 @@ public class ValidatorFactoryProvider implements ValidatorFactory {
 	}
 	
 	@Override
-	public ValidatedResult validateParameter( Object value, Parameter parameter, String labelText, Locale locale, Class<?> ... groups ) {
+	public ValidatedResult validateParameter( 
+		Object value, 
+		Parameter parameter, 
+		String parameterName, 
+		String labelText, 
+		Locale locale, 
+		Class<?> ... groups ) {
+		
 		ValidatedResult testResult = new ValidatedResult();
 		List<Fragment> fragments = compiler.compile( parameter );
 		List<FragmentResult> results = doValidateValue( null, value, null, fragments, locale, groups );
 		if ( results != null ) {
 			Label label = parameter.getAnnotation( Label.class );
+			parameterName = StringUtils.defaultIfEmpty( parameterName, parameter.getName() );
 			labelText = label == null || StringUtils.isEmpty( label.value() ) ? labelText : label.value();
-			testResult.addRejectedResult( createElementResult( value, results, parameter.getName(), labelText, locale ) );
+			testResult.addRejectedResult( createElementResult( value, results, parameterName, labelText, locale ) );
 		} else {
 			testResult.passedAccumulation();
 		}

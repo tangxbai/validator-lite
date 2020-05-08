@@ -17,6 +17,7 @@ package com.viiyue.plugins.validator.annotation;
 
 import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.ElementType.METHOD;
+import static java.lang.annotation.ElementType.PARAMETER;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 import java.lang.annotation.Documented;
@@ -39,7 +40,7 @@ import com.viiyue.plugins.validator.common.Constants;
  * @author tangxbai
  * @since 1.0.0
  */
-@Target({ FIELD, METHOD })
+@Target({ FIELD, METHOD, PARAMETER })
 @Retention( RUNTIME )
 @Documented
 public @interface Label {

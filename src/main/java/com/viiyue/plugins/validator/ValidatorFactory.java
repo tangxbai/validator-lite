@@ -160,7 +160,7 @@ public interface ValidatorFactory {
 	List<Element> compile( Class<?> beanType );
 
 	/**
-	 * Validate the constraints of the specified bean.
+	 * Validate the constraints of the specified bean
 	 * 
 	 * @param bean the target java bean object to be validated
 	 * @param locale the specified locale
@@ -170,7 +170,7 @@ public interface ValidatorFactory {
 	ValidatedResult validateBean( Object bean, Locale locale, Class<?> ... groups );
 	
 	/**
-	 * Validate specified value using constraint rule group.
+	 * Validate specified value using constraint rule group
 	 * 
 	 * @param value the target value to be validated
 	 * @param rules the validation constraint rule combination
@@ -182,15 +182,18 @@ public interface ValidatorFactory {
 	ValidatedResult validateValue( Object value, String rules, String message, Locale locale, Class<?> ... groups );
 	
 	/**
-	 * Validate constraint rules for specified parameters.
+	 * Validate constraint rules for specified parameters
 	 * 
 	 * @param value the target value to be validated
 	 * @param parameter the target parameter object
+	 * @param parameterName specify the parameter name, if not specified will be obtained through the {@link Parameter} object
 	 * @param message the default output message
 	 * @param locale the specified locale
 	 * @param groups validate the constraint rules under the specified group
 	 * @return the verified result
+	 * 
+	 * @since 1.0.0, Update in 1.0.3
 	 */
-	ValidatedResult validateParameter( Object value, Parameter parameter, String message, Locale locale, Class<?> ... groups );
+	ValidatedResult validateParameter( Object value, Parameter parameter, String parameterName, String message, Locale locale, Class<?> ... groups );
 
 }

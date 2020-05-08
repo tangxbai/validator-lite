@@ -252,26 +252,32 @@ public final class Validator {
 	 * 
 	 * @param value the target value to be validated
 	 * @param parameter the target parameter object
+	 * @param parameterName specify the parameter name, if not specified will be obtained through the {@link Parameter} object
 	 * @param message the default output message
 	 * @param groups validate the constraint rules under the specified group
 	 * @return the verified result
+	 * 
+	 * @since 1.0.0, Update in 1.0.3
 	 */
-	public static ValidatedResult validateParameter( Object value, Parameter parameter, String message, Class<?> ... groups ) {
-		return getFactory().validateParameter( value, parameter, message, null, groups );
+	public static ValidatedResult validateParameter( Object value, Parameter parameter, String parameterName, String message, Class<?> ... groups ) {
+		return getFactory().validateParameter( value, parameter, parameterName, message, null, groups );
 	}
 	
 	/**
-	 * Validate constraint rules for specified parameters.
+	 * Validate constraint rules for specified parameters
 	 * 
 	 * @param value the target value to be validated
 	 * @param parameter the target parameter object
+	 * @param parameterName specify the parameter name, if not specified will be obtained through the {@link Parameter} object
 	 * @param message the default output message
 	 * @param locale the specified locale
 	 * @param groups validate the constraint rules under the specified group
 	 * @return the verified result
+	 * 
+	 * @since 1.0.0, Update in 1.0.3
 	 */
-	public static ValidatedResult validateParameter( Object value, Parameter parameter, String message, Locale locale, Class<?> ... groups ) {
-		return getFactory().validateParameter( value, parameter, message, locale, groups );
+	public static ValidatedResult validateParameter( Object value, Parameter parameter, String parameterName, String message, Locale locale, Class<?> ... groups ) {
+		return getFactory().validateParameter( value, parameter, parameterName, message, locale, groups );
 	}
 	
 }
