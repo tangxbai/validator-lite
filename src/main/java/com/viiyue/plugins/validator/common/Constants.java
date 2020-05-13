@@ -74,7 +74,7 @@ public final class Constants {
 	/** Default internationalization resource pack path : "com.viiyue.plugins.validator.resources.Message" */
 	public static final String DEFAULT_RESOURCE_NAME = Message.class.getName();
 	/** Types of Internationalized Languages Preloaded by Default */
-	public static final String[] DEFAULT_MESSAGE_LANGUAGES = { "en", "zh_TW" };
+	public static final String[] DEFAULT_MESSAGE_LANGUAGES = { "de", "en", "zh_TW" };
 	
 	// Group
 	
