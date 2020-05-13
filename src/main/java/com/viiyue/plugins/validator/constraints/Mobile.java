@@ -30,18 +30,18 @@ import com.viiyue.plugins.validator.provider.DefaultProvider;
 
 /**
  * Validates the annotated string is a valid mobile phone number, the number range must be
- * combination of 11 digits beginning with {@code 13}, {@code 14}, {@code 15}, {@code 18}.
+ * combination of 11 digits beginning with {@code 13}, {@code 14}, {@code 15}, {@code 16}, {@code 17}, {@code 18}.
  * 
  * <p>Regular expression: "^(13[0-9]|14[5-9]|15[0-3,5-9]|16[2,5,6,7]|17[0-8]|18[0-9]|19[0-3,5-9])\\d{8}$"</p>
  * 
  * @author tangxbai
- * @since 1.0.0, Updated in 1.0.4
+ * @since 1.0.4
  */
 @Target({ PARAMETER, FIELD, METHOD })
 @Retention( RUNTIME )
 @Documented
 @Mapping( provider = DefaultProvider.class )
-public @interface Cellphone {
+public @interface Mobile {
 	
 	Class<?>[] groups() default {};
 	String message() default Constants.EMPTY_STRING;
